@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-backend-architecture",
+  "name": "strv-test",
   "version": "1.0.2",
   "description": "This is a nodejs backend for STRV",
   "main": "index.js",
