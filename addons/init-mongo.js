@@ -1,4 +1,6 @@
 function seed(dbName, user, password) {
+  // Used to return another database without modifying the db variable in the shell environment.
+  // alternative to USE <database> Helper
   db = db.getSiblingDB(dbName);
   db.createUser({
     user: user,
@@ -24,5 +26,5 @@ function seed(dbName, user, password) {
   ]);
 }
 
-seed('strv-db', 'afteracademy-blog-db-user', 'changeit');
-seed('strv-test-db', 'afteracademy-blog-test-db-user', 'changeit');
+seed('strv-db', 'strv-db-user', 'changeit');
+seed('strv-test-db', 'strv-test-db-user', 'changeit');
