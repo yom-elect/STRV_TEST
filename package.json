@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yom-elect/nodejs-backend.git"
+    "url": "git@github.com:yom-elect/STRV_TEST.git"
   },
   "author": "Adepitan Oriyomi",
   "license": "Apache-2.0",
