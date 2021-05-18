@@ -3,9 +3,19 @@ node_js:
   - 14
 services:
   - docker
+
+dist: trusty
+
+cache:
+  directories:
+    - 'node_modules'
+
 before_install:
-  - cp .env.example .env
+  - cp .env .env
   - cp keys/public.pem.example keys/public.pem
   - cp keys/private.pem.example keys/private.pem
   - cp tests/.env.test.example tests/.env.test
   - docker-compose up -d
+
+script:
+  - 'npm run test'
