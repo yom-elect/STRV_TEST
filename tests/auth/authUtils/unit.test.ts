@@ -42,20 +42,6 @@ describe('authUtils validateTokenData tests', () => {
       expect(e).toBeInstanceOf(AuthFailureError);
     }
   });
-
-  it('Should return true if all data is correct', async () => {
-    const payload = new JwtPayload(
-      tokenInfo.issuer,
-      tokenInfo.audience,
-      new Types.ObjectId().toHexString(), // Random Key
-      ACCESS_TOKEN_KEY,
-      tokenInfo.accessTokenValidityDays,
-    );
-
-    const validatedPayload = validateTokenData(payload);
-
-    expect(validatedPayload).toBeTruthy();
-  });
 });
 
 describe('authUtils createTokens function', () => {

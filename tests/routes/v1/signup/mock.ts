@@ -3,12 +3,8 @@ import { mockUserFindByEmail } from '../login/mock';
 import User from '../../../../src/database/model/User';
 import Keystore from '../../../../src/database/model/Keystore';
 import { Types } from 'mongoose';
-import bcrypt from 'bcrypt';
 
 export const USER_NAME = 'abc';
-export const USER_PROFILE_PIC = 'https://abc.com/xyz';
-
-export const bcryptHashSpy = jest.spyOn(bcrypt, 'hash');
 
 export const mockUserCreate = jest.fn(
   async (

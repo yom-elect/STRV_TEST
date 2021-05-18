@@ -5,10 +5,8 @@ import {
   mockKeystoreCreate,
   mockUserFindByEmail,
   createTokensSpy,
-  bcryptCompareSpy,
   USER_EMAIL,
   USER_PASSWORD,
-  USER_PASSWORD_HASH,
 } from './mock';
 
 import supertest from 'supertest';
@@ -21,7 +19,6 @@ describe('Login basic route', () => {
   beforeEach(() => {
     mockKeystoreCreate.mockClear();
     mockUserFindByEmail.mockClear();
-    bcryptCompareSpy.mockClear();
     createTokensSpy.mockClear();
   });
 
@@ -29,7 +26,6 @@ describe('Login basic route', () => {
     const response = await addHeaders(request.post(endpoint));
     expect(response.status).toBe(400);
     expect(mockUserFindByEmail).not.toBeCalled();
-    expect(bcryptCompareSpy).not.toBeCalled();
     expect(mockKeystoreCreate).not.toBeCalled();
     expect(createTokensSpy).not.toBeCalled();
   });
@@ -39,7 +35,6 @@ describe('Login basic route', () => {
     expect(response.status).toBe(400);
     expect(response.body.message).toMatch(/password/);
     expect(mockUserFindByEmail).not.toBeCalled();
-    expect(bcryptCompareSpy).not.toBeCalled();
     expect(mockKeystoreCreate).not.toBeCalled();
     expect(createTokensSpy).not.toBeCalled();
   });
@@ -49,7 +44,6 @@ describe('Login basic route', () => {
     expect(response.status).toBe(400);
     expect(response.body.message).toMatch(/email/);
     expect(mockUserFindByEmail).not.toBeCalled();
-    expect(bcryptCompareSpy).not.toBeCalled();
     expect(mockKeystoreCreate).not.toBeCalled();
     expect(createTokensSpy).not.toBeCalled();
   });
@@ -59,7 +53,6 @@ describe('Login basic route', () => {
     expect(response.status).toBe(400);
     expect(response.body.message).toMatch(/valid email/);
     expect(mockUserFindByEmail).not.toBeCalled();
-    expect(bcryptCompareSpy).not.toBeCalled();
     expect(mockKeystoreCreate).not.toBeCalled();
     expect(createTokensSpy).not.toBeCalled();
   });
@@ -75,7 +68,6 @@ describe('Login basic route', () => {
     expect(response.body.message).toMatch(/password length/);
     expect(response.body.message).toMatch(/6 char/);
     expect(mockUserFindByEmail).not.toBeCalled();
-    expect(bcryptCompareSpy).not.toBeCalled();
     expect(mockKeystoreCreate).not.toBeCalled();
     expect(createTokensSpy).not.toBeCalled();
   });
@@ -90,7 +82,6 @@ describe('Login basic route', () => {
     expect(response.status).toBe(400);
     expect(response.body.message).toMatch(/not registered/);
     expect(mockUserFindByEmail).toBeCalledTimes(1);
-    expect(bcryptCompareSpy).not.toBeCalled();
     expect(mockKeystoreCreate).not.toBeCalled();
     expect(createTokensSpy).not.toBeCalled();
   });
@@ -105,7 +96,6 @@ describe('Login basic route', () => {
     expect(response.status).toBe(401);
     expect(response.body.message).toMatch(/authentication failure/i);
     expect(mockUserFindByEmail).toBeCalledTimes(1);
-    expect(bcryptCompareSpy).toBeCalledTimes(1);
     expect(mockKeystoreCreate).not.toBeCalled();
     expect(createTokensSpy).not.toBeCalled();
   });
@@ -132,9 +122,6 @@ describe('Login basic route', () => {
 
     expect(mockUserFindByEmail).toBeCalledTimes(1);
     expect(mockKeystoreCreate).toBeCalledTimes(1);
-    expect(bcryptCompareSpy).toBeCalledTimes(1);
     expect(createTokensSpy).toBeCalledTimes(1);
-
-    expect(bcryptCompareSpy).toBeCalledWith(USER_PASSWORD, USER_PASSWORD_HASH);
   });
 });

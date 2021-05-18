@@ -3,6 +3,7 @@ import Logger from './core/Logger';
 import cors from 'cors';
 import { corsUrl, environment } from './config';
 import './database'; // initialize database
+import './helpers/firebaseAdmin'; // initialize firebase
 import { NotFoundError, ApiError, InternalError } from './core/ApiError';
 import routesV1 from './routes/v1';
 

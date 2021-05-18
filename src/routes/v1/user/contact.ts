@@ -1,7 +1,7 @@
 import express from 'express';
+import admin from 'firebase-admin';
 import { SuccessResponse } from '../../../core/ApiResponse';
 import { ProtectedRequest } from 'app-request';
-import { BadRequestError } from '../../../core/ApiError';
 import { RoleCode } from '../../../database/model/Role';
 import validator from '../../../helpers/validator';
 import schema from './schema';
@@ -11,6 +11,8 @@ import authorization from '../../../auth/authorization';
 import role from '../../../helpers/role';
 
 const router = express.Router();
+const db = admin.firestore();
+const contact = db.collection('addressBook');
 
 /*-------------------------------------------------------------------------*/
 // Below all APIs are private APIs protected for writer's role
@@ -21,9 +23,15 @@ router.post(
   '/',
   validator(schema.contactCreate),
   asyncHandler(async (req: ProtectedRequest, res) => {
-    // Firebase Save to contact
-    const contactCreate = null;
-    new SuccessResponse('Contact created successfully', contactCreate).send(res);
+    const { firstName, lastName, address, phoneNumber } = req.body;
+    let docRef = contact.doc(firstName);
+    await docRef.set({
+      lastName,
+      phoneNumber,
+      address,
+      firstName,
+    });
+    new SuccessResponse('Contact created successfully', true).send(res);
   }),
 );
 
