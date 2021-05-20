@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  app:
+  addressbook-api:
     # This defines the configuration options, including the context and dockerfile,
     # that will be applied when Compose builds the application image.
     build:
@@ -9,8 +9,8 @@ services:
       context: .
       # This specifies the Dockerfile in your current project directory as the file
       dockerfile: Dockerfile
-    image: app
-    container_name: app
+    image: app-api
+    container_name: app-api
     # This defines the restart policy. The default is no,
     # but we have set the container to restart unless it is stopped.
     restart: unless-stopped
