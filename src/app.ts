@@ -1,11 +1,13 @@
 import express, { Request, Response, NextFunction } from 'express';
 import Logger from './core/Logger';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
 import { corsUrl, environment } from './config';
 import './database'; // initialize database
 import './helpers/firebaseAdmin'; // initialize firebase
 import { NotFoundError, ApiError, InternalError } from './core/ApiError';
 import routesV1 from './routes/v1';
+import docs from '../docs';
 
 process.on('uncaughtException', (e) => {
   Logger.error(e);
@@ -19,6 +21,7 @@ app.use(cors({ origin: corsUrl, optionsSuccessStatus: 200 }));
 
 // Routes
 app.use('/v1', routesV1);
+app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(docs));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => next(new NotFoundError()));

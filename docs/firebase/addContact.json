@@ -1,0 +1,105 @@
+{
+  "post": {
+    "security": [
+      {
+        "Bearer": [],
+        "APIKeyHeader": ""
+      }
+    ],
+    "tags": ["Contacts (Firebase)"],
+    "summary": "Add a contact detail",
+    "description": "add a contact and save to firebase database",
+    "parameters": [
+      {
+        "name": "Add a new contact details",
+        "in": "body",
+        "description": "request payload",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "firstName": {
+              "type": "string",
+              "example": "Victor"
+            },
+            "lastName": {
+              "type": "string",
+              "example": "Mike"
+            },
+            "phone": {
+              "type": "number",
+              "example": 2348138518677
+            },
+            "address": {
+              "type": "string",
+              "example": "3 New York Street"
+            }
+          }
+        }
+      }
+    ],
+    "produces": ["application/json"],
+    "responses": {
+      "201": {
+        "description": "Signup successful",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "example": 201
+            },
+            "message": {
+              "type": "srting",
+              "example": "Contact details added to firebase database successfully"
+            }
+          }
+        }
+      }
+    },
+    "401": {
+      "description": "Authentication failure",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "number",
+            "example": 401
+          },
+          "error": {
+            "type": "string",
+            "example": "Authentication failed, Please make sure you're logged in"
+          }
+        }
+      }
+    },
+    "422": {
+      "description": "First name is required",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "number",
+            "example": 422
+          },
+          "method": {
+            "type": "string",
+            "example": "POST"
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "error": {
+                "type": "string",
+                "example": "First name is required"
+              }
+            }
+          },
+          "data": {
+            "type": "string",
+            "example": null
+          }
+        }
+      }
+    }
+  }
+}

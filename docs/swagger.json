@@ -1,0 +1,42 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Address Book",
+    "description": "Welcome to Address Book api docs\n "
+  },
+  "servers": ["localhost:3000", "https://strv-addressbook-test.herokuapp.com"],
+  "basePath": "/v1/",
+  "schemes": ["http", "https"],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    },
+    "APIKeyHeader": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-API-key"
+    }
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {},
+  "definitions": {
+    "Users": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
