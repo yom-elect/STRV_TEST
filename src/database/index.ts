@@ -1,11 +1,14 @@
 import mongoose from 'mongoose';
 import Logger from '../core/Logger';
-import { db } from '../config';
+import { db, environment } from '../config';
 
 // Build the connection string
-const dbURI = `mongodb://${db.user}:${encodeURIComponent(db.password)}@${db.host}:${db.port}/${
-  db.name
-}`;
+const dbURI =
+  environment === 'production'
+    ? `mongodb+srv://${db.user}:${encodeURIComponent(db.password)}@${db.host}/${
+        db.name
+      }?retryWrites=true&w=majority`
+    : `mongodb://${db.user}:${encodeURIComponent(db.password)}@${db.host}:${db.port}/${db.name}`;
 
 const options = {
   useNewUrlParser: true,
