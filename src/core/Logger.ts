@@ -4,7 +4,7 @@ import path from 'path';
 import DailyRotateFile from 'winston-daily-rotate-file';
 import { environment, logDirectory } from '../config';
 
-let dir = logDirectory;
+let dir = environment === 'development' ? logDirectory : null;
 if (!dir) dir = path.resolve('logs');
 
 // create directory if it is not present
