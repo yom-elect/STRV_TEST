@@ -7,7 +7,7 @@
   "description": "This is a nodejs backend for STRV",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && npm run serve",
+    "start:dev": "npm run build && npm run serve",
     "serve": "node -r dotenv/config build/src/server.js",
     "postinstall": "npm run build",
     "build": "npm run clean && npm run build-ts",
