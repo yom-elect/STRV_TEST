@@ -15,7 +15,7 @@ const params = {
   clientC509CertUrl: process.env.FIREBASE_CLIENT_x509_CERT_URL,
 };
 
-admin.initializeApp({
+export default admin.initializeApp({
   credential: admin.credential.cert(params),
   databaseURL: firebaseDatabaseUrl,
 });

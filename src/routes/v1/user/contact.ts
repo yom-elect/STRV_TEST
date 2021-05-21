@@ -1,5 +1,4 @@
 import express from 'express';
-import admin from 'firebase-admin';
 import { SuccessResponse } from '../../../core/ApiResponse';
 import { ProtectedRequest } from 'app-request';
 import { RoleCode } from '../../../database/model/Role';
@@ -9,6 +8,7 @@ import asyncHandler from '../../../helpers/asyncHandler';
 import authentication from '../../../auth/authentication';
 import authorization from '../../../auth/authorization';
 import role from '../../../helpers/role';
+import admin from '../../../helpers/firebaseAdmin';
 
 const router = express.Router();
 const db = admin.firestore();
