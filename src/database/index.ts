@@ -27,6 +27,7 @@ Logger.debug(dbURI);
 mongoose
   .connect(dbURI, options)
   .then(() => {
+    console.log('done');
     Logger.info('Mongoose connection done');
   })
   .catch((e) => {
