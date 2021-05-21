@@ -12,7 +12,7 @@ const params = {
   authUri: process.env.FIREBASE_AUTH_URI,
   tokenUri: process.env.FIREBASE_TOKEN_URI,
   authProviderX509CertUrl: process.env.FIREBASE_AUTH_PROVIDER_x509_CERT_URL,
-  clientC509CertUrl: process.env.FIREBASE_CLIENT_x509_CERT_URL,
+  clientX509CertUrl: process.env.FIREBASE_CLIENT_x509_CERT_URL,
 };
 
 export default admin.initializeApp({

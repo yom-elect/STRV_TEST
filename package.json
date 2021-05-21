@@ -2,7 +2,7 @@
   "name": "strv-test",
   "version": "1.0.2",
   "engines": {
-    "node": "14.17.0"
+    "node": "14.x"
   },
   "description": "This is a nodejs backend for STRV",
   "main": "index.js",
@@ -18,6 +18,7 @@
     "watch-ts": "tsc -w",
     "eslint": "eslint . --ext .js,.ts",
     "upgrade": "npm update --save-dev && npm update --save",
+    "heroku:db": "node build/src/database/migration/seed.js",
     "test": "jest --forceExit --detectOpenHandles --coverage --verbose"
   },
   "repository": {
@@ -36,6 +37,7 @@
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
+    "mongo-seeding": "^3.6.0",
     "mongoose": "^5.10.11",
     "swagger-ui-express": "^4.1.6",
     "winston": "^3.3.3",
