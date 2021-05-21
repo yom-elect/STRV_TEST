@@ -18,7 +18,7 @@
     "eslint": "eslint . --ext .js,.ts",
     "upgrade": "npm update --save-dev && npm update --save",
     "test": "jest --forceExit --detectOpenHandles --coverage --verbose",
-    "heroku-postbuild": ""
+    "heroku-postbuild": "npm run start"
   },
   "repository": {
     "type": "git",
