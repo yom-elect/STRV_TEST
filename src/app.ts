@@ -3,7 +3,7 @@ import Logger from './core/Logger';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import { corsUrl, environment } from './config';
-import './database'; // initialize database
+// import './database'; // initialize database
 import { NotFoundError, ApiError, InternalError } from './core/ApiError';
 import routesV1 from './routes/v1';
 import docs from '../docs';
