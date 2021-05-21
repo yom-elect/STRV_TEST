@@ -1,6 +1,9 @@
 {
   "name": "strv-test",
   "version": "1.0.2",
+  "engines": {
+    "node": "14.17.0"
+  },
   "description": "This is a nodejs backend for STRV",
   "main": "index.js",
   "scripts": {
