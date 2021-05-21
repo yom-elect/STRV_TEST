@@ -7,9 +7,8 @@
   "description": "This is a nodejs backend for STRV",
   "main": "index.js",
   "scripts": {
-    "start:dev": "npm run build && npm run serve",
+    "start": "npm run build && npm run serve",
     "serve": "node -r dotenv/config build/src/server.js",
-    "postinstall": "npm run build",
     "build": "npm run clean && npm run build-ts",
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
     "watch-node": "nodemon -r dotenv/config build/server.js",
@@ -18,8 +17,7 @@
     "watch-ts": "tsc -w",
     "eslint": "eslint . --ext .js,.ts",
     "upgrade": "npm update --save-dev && npm update --save",
-    "test": "jest --forceExit --detectOpenHandles --coverage --verbose",
-    "heroku-postbuild": "npm run serve"
+    "test": "jest --forceExit --detectOpenHandles --coverage --verbose"
   },
   "repository": {
     "type": "git",
