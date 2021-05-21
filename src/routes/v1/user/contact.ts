@@ -11,8 +11,8 @@ import role from '../../../helpers/role';
 import admin from '../../../helpers/firebaseAdmin';
 
 const router = express.Router();
-const db = admin.firestore();
-const contact = db.collection('addressBook');
+// const db = admin.firestore();
+// const contact = db.collection('addressBook');
 
 /*-------------------------------------------------------------------------*/
 // Below all APIs are private APIs protected for writer's role
@@ -24,13 +24,13 @@ router.post(
   validator(schema.contactCreate),
   asyncHandler(async (req: ProtectedRequest, res) => {
     const { firstName, lastName, address, phoneNumber } = req.body;
-    let docRef = contact.doc(firstName);
-    await docRef.set({
-      lastName,
-      phoneNumber,
-      address,
-      firstName,
-    });
+    // let docRef = contact.doc(firstName);
+    // await docRef.set({
+    //   lastName,
+    //   phoneNumber,
+    //   address,
+    //   firstName,
+    // });
     new SuccessResponse('Contact created successfully', true).send(res);
   }),
 );
