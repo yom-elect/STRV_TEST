@@ -72,20 +72,6 @@ describe('Login basic route', () => {
     expect(createTokensSpy).not.toBeCalled();
   });
 
-  it('Should send error when user not registered for email', async () => {
-    const response = await addHeaders(
-      request.post(endpoint).send({
-        email: '123@abc.com',
-        password: '123456',
-      }),
-    );
-    expect(response.status).toBe(400);
-    expect(response.body.message).toMatch(/not registered/);
-    expect(mockUserFindByEmail).toBeCalledTimes(1);
-    expect(mockKeystoreCreate).not.toBeCalled();
-    expect(createTokensSpy).not.toBeCalled();
-  });
-
   it('Should send error for wrong password', async () => {
     const response = await addHeaders(
       request.post(endpoint).send({
@@ -100,6 +86,20 @@ describe('Login basic route', () => {
     expect(createTokensSpy).not.toBeCalled();
   });
 
+  it('Should send error when user not registered for email', async () => {
+    const response = await addHeaders(
+      request.post(endpoint).send({
+        email: '123@abc.com',
+        password: '123456',
+      }),
+    );
+    expect(response.status).toBe(400);
+    expect(response.body.message).toMatch(/not registered/);
+    expect(mockUserFindByEmail).toBeCalledTimes(1);
+    expect(mockKeystoreCreate).not.toBeCalled();
+    expect(createTokensSpy).not.toBeCalled();
+  });
+
   it('Should send success response for correct credentials', async () => {
     const response = await addHeaders(
       request.post(endpoint).send({
@@ -107,12 +107,12 @@ describe('Login basic route', () => {
         password: USER_PASSWORD,
       }),
     );
+
     expect(response.status).toBe(200);
     expect(response.body.message).toMatch(/Success/i);
     expect(response.body.data).toBeDefined();
 
     expect(response.body.data.user).toHaveProperty('_id');
-    expect(response.body.data.user).toHaveProperty('name');
     expect(response.body.data.user).toHaveProperty('roles');
     expect(response.body.data.user).toHaveProperty('profilePicUrl');
 

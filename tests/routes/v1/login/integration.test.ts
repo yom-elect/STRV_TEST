@@ -27,7 +27,7 @@ describe('Login basic route', () => {
     await UserModel.remove({}); // delete all data from user table
     user = await UserModel.create({
       email: 'abc@xyz.com',
-      password: argon2.hash(password) as unknown,
+      password: (await argon2.hash(password)) as unknown,
       updatedAt: new Date(),
       createdAt: new Date(),
       roles: [{ _id: new Types.ObjectId(), code: RoleCode.USER } as Role],

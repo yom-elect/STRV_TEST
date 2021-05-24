@@ -27,7 +27,7 @@ export const mockUserFindByEmail = jest.fn(async (email: string): Promise<User |
     return {
       _id: USER_ID,
       email: USER_EMAIL,
-      password: argon2.hash(USER_PASSWORD) as unknown,
+      password: (await argon2.hash(USER_PASSWORD)) as unknown,
       roles: [] as Role[],
     } as User;
   return null;

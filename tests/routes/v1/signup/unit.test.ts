@@ -31,7 +31,6 @@ describe('Signup basic route', () => {
   it('Should send error when email is not sent', async () => {
     const response = await addHeaders(
       request.post(endpoint).send({
-        name: USER_NAME,
         password: USER_PASSWORD,
       }),
     );
@@ -52,21 +51,6 @@ describe('Signup basic route', () => {
     );
     expect(response.status).toBe(400);
     expect(response.body.message).toMatch(/password/);
-    expect(response.body.message).toMatch(/required/);
-    expect(mockUserFindByEmail).not.toBeCalled();
-    expect(mockUserCreate).not.toBeCalled();
-    expect(createTokensSpy).not.toBeCalled();
-  });
-
-  it('Should send error when name is not sent', async () => {
-    const response = await addHeaders(
-      request.post(endpoint).send({
-        email: email,
-        password: USER_PASSWORD,
-      }),
-    );
-    expect(response.status).toBe(400);
-    expect(response.body.message).toMatch(/name/);
     expect(response.body.message).toMatch(/required/);
     expect(mockUserFindByEmail).not.toBeCalled();
     expect(mockUserCreate).not.toBeCalled();
@@ -129,7 +113,6 @@ describe('Signup basic route', () => {
     expect(response.body.data).toBeDefined();
 
     expect(response.body.data.user).toHaveProperty('_id');
-    expect(response.body.data.user).toHaveProperty('name');
     expect(response.body.data.user).toHaveProperty('roles');
 
     expect(response.body.data.tokens).toBeDefined();

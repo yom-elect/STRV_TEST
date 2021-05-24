@@ -30,22 +30,6 @@ export default class UserRepo {
       .exec();
   }
 
-  public static findProfileById(id: Types.ObjectId): Promise<User | null> {
-    return UserModel.findOne({ _id: id, status: true })
-      .select('+roles')
-      .populate({
-        path: 'roles',
-        match: { status: true },
-        select: { code: 1 },
-      })
-      .lean<User>()
-      .exec();
-  }
-
-  public static findPublicProfileById(id: Types.ObjectId): Promise<User | null> {
-    return UserModel.findOne({ _id: id, status: true }).lean<User>().exec();
-  }
-
   public static async create(
     user: User,
     accessTokenKey: string,

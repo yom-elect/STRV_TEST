@@ -1,5 +1,4 @@
 import admin from 'firebase-admin';
-
 import { firebaseDatabaseUrl } from '../config';
 
 const params = {
