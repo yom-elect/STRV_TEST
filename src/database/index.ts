@@ -5,10 +5,10 @@ import { db, environment } from '../config';
 // Build the connection string
 const dbURI =
   environment === 'production'
-    ? `mongodb+srv://${db.user}:${encodeURIComponent(db.password)}@cluster0.asyjr.mongodb.net/${
+    ? `mongodb+srv://${db.user}:${encodeURI(db.password)}@cluster0.asyjr.mongodb.net/${
         db.name
       }?retryWrites=true&w=majority`
-    : `mongodb://${db.user}:${encodeURIComponent(db.password)}@${db.host}:${db.port}/${db.name}`;
+    : `mongodb://${db.user}:${encodeURI(db.password)}@${db.host}:${db.port}/${db.name}`;
 
 const options = {
   useNewUrlParser: true,
@@ -17,13 +17,9 @@ const options = {
   useFindAndModify: false,
   autoIndex: true,
   poolSize: 10, // Maintain up to 10 socket connections
-  // If not connected, return errors immediately rather than waiting for reconnect
-  bufferMaxEntries: 0,
-  connectTimeoutMS: 10000, // Give up initial connection after 10 seconds
-  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
 };
 
-Logger.debug(dbURI);
+Logger.debug(dbURI + db.password);
 
 // Create the database connection
 mongoose
@@ -33,7 +29,7 @@ mongoose
   })
   .catch((e) => {
     Logger.info('Mongoose connection error');
-    Logger.error(e);
+    Logger.error(e.message);
   });
 
 // CONNECTION EVENTS
