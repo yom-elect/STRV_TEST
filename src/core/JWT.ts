@@ -19,7 +19,7 @@ export default class JWT {
   }
 
   private static readPrivateKey(): Promise<string> {
-    Logger.error(__dirname);
+    Logger.error(path.join(__dirname, '../../../keys'));
     return promisify(readFile)(path.join(__dirname, '../../../keys/private.pem'), 'utf8');
   }
 
