@@ -12,7 +12,6 @@ import asyncHandler from '../../../helpers/asyncHandler';
 import argon2 from 'argon2';
 import _ from 'lodash';
 import { RoleCode } from '../../../database/model/Role';
-import Logger from '../../../core/Logger';
 
 const router = express.Router();
 
@@ -27,25 +26,20 @@ router.post(
     const refreshTokenKey = crypto.randomBytes(64).toString('hex');
 
     const passwordHash = await argon2.hash(req.body.password);
-
-    try {
-      const { user: createdUser, keystore } = await UserRepo.create(
-        {
-          email: req.body.email,
-          password: passwordHash,
-        } as User,
-        accessTokenKey,
-        refreshTokenKey,
-        RoleCode.USER,
-      );
-      const tokens = await createTokens(createdUser, keystore.primaryKey, keystore.secondaryKey);
-      new SuccessResponse('Signup Successful', {
-        user: _.pick(createdUser, ['_id', 'email', 'roles']),
-        tokens: tokens,
-      }).send(res);
-    } catch (err) {
-      Logger.error(err);
-    }
+    const { user: createdUser, keystore } = await UserRepo.create(
+      {
+        email: req.body.email,
+        password: passwordHash,
+      } as User,
+      accessTokenKey,
+      refreshTokenKey,
+      RoleCode.USER,
+    );
+    const tokens = await createTokens(createdUser, keystore.primaryKey, keystore.secondaryKey);
+    new SuccessResponse('Signup Successful', {
+      user: _.pick(createdUser, ['_id', 'email', 'roles']),
+      tokens: tokens,
+    }).send(res);
   }),
 );
 
