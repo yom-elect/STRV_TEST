@@ -20,13 +20,18 @@ router.post(
   '/basic',
   validator(schema.signup),
   asyncHandler(async (req: RoleRequest, res) => {
-    Logger.error(req.body);
-    const user = await UserRepo.findByEmail(req.body.email);
-    if (user) throw new BadRequestError('User already registered');
-    Logger.error(user);
+    try {
+      const user = await UserRepo.findByEmail(req.body.email);
+      if (user) throw new BadRequestError('User already registered');
+    } catch (err) {
+      Logger.error(err);
+    }
+
     const accessTokenKey = crypto.randomBytes(64).toString('hex');
     const refreshTokenKey = crypto.randomBytes(64).toString('hex');
+
     const passwordHash = await argon2.hash(req.body.password);
+    Logger.error(passwordHash);
 
     const { user: createdUser, keystore } = await UserRepo.create(
       {

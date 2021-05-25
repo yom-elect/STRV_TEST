@@ -23,7 +23,7 @@ Logger.debug(dbURI);
 mongoose
   .connect(dbURI, options)
   .then(() => {
-    Logger.error('Mongoose connection done');
+    Logger.info('Mongoose connection done');
   })
   .catch((e) => {
     Logger.info('Mongoose connection error');
