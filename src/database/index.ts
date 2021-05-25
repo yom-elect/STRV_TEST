@@ -5,9 +5,7 @@ import { db, environment } from '../config';
 // Build the connection string
 const dbURI =
   environment === 'production'
-    ? `mongodb+srv://${db.user}:${encodeURI(db.password)}@cluster0.asyjr.mongodb.net/${
-        db.name
-      }?retryWrites=true&w=majority`
+    ? db.uri
     : `mongodb://${db.user}:${encodeURI(db.password)}@${db.host}:${db.port}/${db.name}`;
 
 const options = {
@@ -19,7 +17,7 @@ const options = {
   poolSize: 10, // Maintain up to 10 socket connections
 };
 
-Logger.debug(dbURI);
+Logger.error(dbURI);
 
 // Create the database connection
 mongoose
