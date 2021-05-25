@@ -15,11 +15,11 @@ import Logger from './Logger';
 
 export default class JWT {
   private static readPublicKey(): Promise<string> {
-    Logger.error(__dirname);
     return promisify(readFile)(path.join(__dirname, '../../../keys/public.pem'), 'utf8');
   }
 
   private static readPrivateKey(): Promise<string> {
+    Logger.error(__dirname);
     return promisify(readFile)(path.join(__dirname, '../../../keys/private.pem'), 'utf8');
   }
 
