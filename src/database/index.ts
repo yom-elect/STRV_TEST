@@ -17,13 +17,13 @@ const options = {
   poolSize: 10, // Maintain up to 10 socket connections
 };
 
-Logger.error(dbURI);
+Logger.debug(dbURI);
 
 // Create the database connection
 mongoose
   .connect(dbURI, options)
   .then(() => {
-    Logger.info('Mongoose connection done');
+    Logger.error('Mongoose connection done');
   })
   .catch((e) => {
     Logger.info('Mongoose connection error');
