@@ -19,7 +19,7 @@ const options = {
   poolSize: 10, // Maintain up to 10 socket connections
 };
 
-Logger.debug(dbURI + db.password);
+Logger.debug(dbURI);
 
 // Create the database connection
 mongoose
