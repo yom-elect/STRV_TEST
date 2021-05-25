@@ -20,34 +20,32 @@ router.post(
   '/basic',
   validator(schema.signup),
   asyncHandler(async (req: RoleRequest, res) => {
-    try {
-      const user = await UserRepo.findByEmail(req.body.email);
-      if (user) throw new BadRequestError('User already registered');
-    } catch (err) {
-      Logger.error(err);
-    }
+    const user = await UserRepo.findByEmail(req.body.email);
+    if (user) throw new BadRequestError('User already registered');
 
     const accessTokenKey = crypto.randomBytes(64).toString('hex');
     const refreshTokenKey = crypto.randomBytes(64).toString('hex');
 
     const passwordHash = await argon2.hash(req.body.password);
-    Logger.error(passwordHash);
 
-    const { user: createdUser, keystore } = await UserRepo.create(
-      {
-        email: req.body.email,
-        password: passwordHash,
-      } as User,
-      accessTokenKey,
-      refreshTokenKey,
-      RoleCode.USER,
-    );
-
-    const tokens = await createTokens(createdUser, keystore.primaryKey, keystore.secondaryKey);
-    new SuccessResponse('Signup Successful', {
-      user: _.pick(createdUser, ['_id', 'email', 'roles']),
-      tokens: tokens,
-    }).send(res);
+    try {
+      const { user: createdUser, keystore } = await UserRepo.create(
+        {
+          email: req.body.email,
+          password: passwordHash,
+        } as User,
+        accessTokenKey,
+        refreshTokenKey,
+        RoleCode.USER,
+      );
+      const tokens = await createTokens(createdUser, keystore.primaryKey, keystore.secondaryKey);
+      new SuccessResponse('Signup Successful', {
+        user: _.pick(createdUser, ['_id', 'email', 'roles']),
+        tokens: tokens,
+      }).send(res);
+    } catch (err) {
+      Logger.error(err);
+    }
   }),
 );
 
